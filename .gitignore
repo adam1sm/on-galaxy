@@ -1,0 +1,6 @@
+build/
+outputs/
+*.bin
+*.mp4
+*.gif
+__pycache__/

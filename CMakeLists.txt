@@ -50,6 +50,12 @@ add_executable(harness3d
 )
 target_include_directories(harness3d PRIVATE src3d)
 
+# Rung 10a: adaptive FMM (CGR U/V/W/X) gates -- CPU only.
+add_executable(adaptive_tests
+    src3d/adaptive_tests.cpp
+)
+target_include_directories(adaptive_tests PRIVATE src3d)
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     target_compile_options(galaxy PRIVATE -Wall -Wextra)
     target_compile_options(harness PRIVATE -Wall -Wextra)
@@ -57,4 +63,57 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     target_compile_options(galaxy3d PRIVATE -Wall -Wextra)
     target_compile_options(fmm3d_tests PRIVATE -Wall -Wextra)
     target_compile_options(harness3d PRIVATE -Wall -Wextra)
+    target_compile_options(adaptive_tests PRIVATE -Wall -Wextra)
+endif()
+
+# ---------------------------------------------------------------------------
+# RUNG 6: GPU track (CUDA). Built ONLY when a CUDA compiler is available, so the
+# CPU tracks still build everywhere (e.g. the Mac, or this machine before the
+# toolkit is installed). Target arch sm_86 (RTX 30-series / Ampere).
+# ---------------------------------------------------------------------------
+include(CheckLanguage)
+check_language(CUDA)
+if(CMAKE_CUDA_COMPILER)
+    enable_language(CUDA)
+    set(CMAKE_CUDA_STANDARD 17)
+    if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
+        set(CMAKE_CUDA_ARCHITECTURES 86)
+    endif()
+    add_executable(gpu_harness
+        src3d/gpu/gpu_harness.cu
+        src3d/gpu/gpu_direct.cu
+    )
+    target_include_directories(gpu_harness PRIVATE src3d src3d/gpu)
+
+    # Rung 7: GPU FMM (million-body). Larger per-thread local buffers -> bump.
+    add_executable(fmm_gpu_harness
+        src3d/gpu/fmm_gpu_harness.cu
+        src3d/gpu/FMM3DGPU.cu
+        src3d/gpu/gpu_direct.cu
+    )
+    target_include_directories(fmm_gpu_harness PRIVATE src3d src3d/gpu)
+    set_target_properties(fmm_gpu_harness PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+
+    # Rung 8: galaxy / merger simulation driver (reuses the Rung 7 GPU FMM).
+    add_executable(galaxy_sim
+        src3d/gpu/galaxy_sim.cu
+        src3d/gpu/FMM3DGPU.cu
+        src3d/gpu/AdaptiveFMM3DGPU.cu
+    )
+    target_include_directories(galaxy_sim PRIVATE src3d src3d/gpu)
+    set_target_properties(galaxy_sim PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+
+    # Rung 10b: GPU adaptive FMM (CGR) harness.
+    add_executable(adaptive_gpu_harness
+        src3d/gpu/adaptive_gpu_harness.cu
+        src3d/gpu/AdaptiveFMM3DGPU.cu
+        src3d/gpu/FMM3DGPU.cu
+        src3d/gpu/gpu_direct.cu
+    )
+    target_include_directories(adaptive_gpu_harness PRIVATE src3d src3d/gpu)
+    set_target_properties(adaptive_gpu_harness PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+
+    message(STATUS "CUDA found (${CMAKE_CUDA_COMPILER}) -- building gpu_harness + fmm_gpu_harness for sm_${CMAKE_CUDA_ARCHITECTURES}")
+else()
+    message(STATUS "CUDA not found -- building CPU tracks only (gpu_harness skipped)")
 endif()

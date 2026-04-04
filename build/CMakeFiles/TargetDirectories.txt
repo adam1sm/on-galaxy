@@ -1,8 +1,0 @@
-/Users/adamkhadre/galaxy/build/CMakeFiles/galaxy.dir
-/Users/adamkhadre/galaxy/build/CMakeFiles/harness.dir
-/Users/adamkhadre/galaxy/build/CMakeFiles/fmm_tests.dir
-/Users/adamkhadre/galaxy/build/CMakeFiles/galaxy3d.dir
-/Users/adamkhadre/galaxy/build/CMakeFiles/fmm3d_tests.dir
-/Users/adamkhadre/galaxy/build/CMakeFiles/harness3d.dir
-/Users/adamkhadre/galaxy/build/CMakeFiles/edit_cache.dir
-/Users/adamkhadre/galaxy/build/CMakeFiles/rebuild_cache.dir
