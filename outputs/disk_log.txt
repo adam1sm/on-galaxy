@@ -1,0 +1,25 @@
+=== galaxy Rung 0 (DirectSolver) ===
+scenario   : disk
+N          : 500
+dt         : 0.002
+steps      : 8000
+G, eps     : 1, 0.05
+solver     : DirectSolver(O(N^2))
+outputs    : outputs/disk_trajectory.csv, outputs/disk_diagnostics.csv
+step        0  t     0.0000  E -2.02630093e-02  KE  9.458740e-02  PE -1.148504e-01  |P| 9.249e-18
+step     1000  t     2.0000  E -2.02632735e-02  KE  3.736584e-01  PE -3.939216e-01  |P| 2.309e-17
+step     2000  t     4.0000  E -2.02630596e-02  KE  1.889091e-01  PE -2.091721e-01  |P| 6.316e-17
+step     3000  t     6.0000  E -2.02630423e-02  KE  1.855115e-01  PE -2.057745e-01  |P| 3.788e-17
+step     4000  t     8.0000  E -2.02633099e-02  KE  3.133701e-01  PE -3.336334e-01  |P| 5.213e-17
+step     5000  t    10.0000  E -2.02631138e-02  KE  1.862760e-01  PE -2.065391e-01  |P| 5.171e-17
+step     6000  t    12.0000  E -2.02632377e-02  KE  2.759052e-01  PE -2.961684e-01  |P| 1.109e-17
+step     7000  t    14.0000  E -2.02631448e-02  KE  2.243591e-01  PE -2.446223e-01  |P| 4.369e-17
+step     8000  t    16.0000  E -2.02631805e-02  KE  2.344640e-01  PE -2.547272e-01  |P| 1.310e-16
+
+=== conservation summary ===
+E0                     : -2.0263009251e-02
+max |dE|               :  1.140220e-06
+max |dE|/|E0|          :  5.627103e-05   <-- energy drift (bounded)
+max |dP| (from P0)     :  1.343096e-16
+wrote: outputs/disk_trajectory.csv
+wrote: outputs/disk_diagnostics.csv

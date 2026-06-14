@@ -1,0 +1,9 @@
+=== force-comparison vs DirectSolver oracle (N=4000, seed=42) ===
+   theta     max_rel_err     rms_rel_err
+    0.00    4.559273e-14    3.548845e-15   <-- correctness gate
+GATE PASS: theta=0 reduces to direct summation (max_rel_err 4.559e-14 <= 1.0e-09)
+    0.10    8.317581e-04    7.772804e-05
+    0.30    1.115715e-02    1.005169e-03
+    0.50    3.660828e-02    2.676224e-03
+    0.80    8.462794e-02    8.568635e-03
+wrote outputs/bh_error_vs_theta.csv

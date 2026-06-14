@@ -1,0 +1,28 @@
+=== galaxy Rung 0 (DirectSolver) ===
+scenario   : twobody
+N          : 2
+dt         : 0.005
+steps      : 30000
+G, eps     : 1, 0.01
+period T   : 8.88588  (16.8807 periods)
+solver     : DirectSolver(O(N^2))
+outputs    : outputs/twobody_trajectory.csv, outputs/twobody_diagnostics.csv
+step        0  t     0.0000  E  1.19314718e+00  KE  4.999875e-01  PE  6.931597e-01  |P| 0.000e+00
+step     3000  t    15.0000  E  1.19314718e+00  KE  4.999848e-01  PE  6.931624e-01  |P| 0.000e+00
+step     6000  t    30.0000  E  1.19314718e+00  KE  4.999862e-01  PE  6.931610e-01  |P| 0.000e+00
+step     9000  t    45.0000  E  1.19314718e+00  KE  4.999868e-01  PE  6.931604e-01  |P| 0.000e+00
+step    12000  t    60.0000  E  1.19314718e+00  KE  4.999844e-01  PE  6.931627e-01  |P| 0.000e+00
+step    15000  t    75.0000  E  1.19314718e+00  KE  4.999874e-01  PE  6.931598e-01  |P| 0.000e+00
+step    18000  t    90.0000  E  1.19314718e+00  KE  4.999852e-01  PE  6.931619e-01  |P| 0.000e+00
+step    21000  t   105.0000  E  1.19314718e+00  KE  4.999856e-01  PE  6.931616e-01  |P| 0.000e+00
+step    24000  t   120.0000  E  1.19314718e+00  KE  4.999872e-01  PE  6.931600e-01  |P| 0.000e+00
+step    27000  t   135.0000  E  1.19314718e+00  KE  4.999844e-01  PE  6.931628e-01  |P| 0.000e+00
+step    30000  t   150.0000  E  1.19314718e+00  KE  4.999870e-01  PE  6.931602e-01  |P| 0.000e+00
+
+=== conservation summary ===
+E0                     :  1.1931471807e+00
+max |dE|               :  9.766188e-12
+max |dE|/|E0|          :  8.185233e-12   <-- energy drift (bounded)
+max |dP| (from P0)     :  0.000000e+00
+wrote: outputs/twobody_trajectory.csv
+wrote: outputs/twobody_diagnostics.csv
