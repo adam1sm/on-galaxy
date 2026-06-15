@@ -2,9 +2,13 @@
 
 A gravitational N-body engine built around the Fast Multipole Method, a mathematical technique allowing us to simulate a million interacting bodies in **linear time**, written from scratch in 2D and 3D, on CPU and GPU. Demonstrated with the mathematically accurate collision of two galaxies, containing 1 million bodies total, simulated directly on GPU.
 
-[![the merger](outputs/coalesce_pass.png)](outputs/merger1m_coalesce.mp4)
+<div align="center">
 
-*Two disk galaxies fall together, throw off tidal tails and a bridge, swing back, and coalesce into one relaxed remnant. A million bodies, fp32, RTX 3070 laptop.*
+![the merger](outputs/merger1m_coalesce.gif)
+
+*(Note: The simulation runs smoother and faster than this GIF can display due to browser limitations. For the true framerate, [view the raw MP4 video here](outputs/merger1m_coalesce.mp4).)*
+
+</div>
 
 ## What this is
 
@@ -38,7 +42,7 @@ Here's where it gets real. A uniform grid of equal cells is perfectly happy on e
 
 The solution to this is the adaptive FMM (Carrier, Greengard & Rokhlin). This is the most difficult part of this project, easily. Basically, you split a box only when it's crowded, like a map that auto-zooms into cities and leaves the empty ocean as one big tile. Now every cell holds at most a fixed number of stars no matter how lumpy the universe gets. The price is that cells of wildly different sizes end up as neighbors, and keeping their intractions correct takes four separate lists — two of which I build as exact mirror images of each other, which kills double-counting and lets me skip the expecteds misery of balancing the tree.
 
-![adaptive vs uniform](outputs/threed_cluster.gif)
+![adaptive vs uniform](outputs/threed_cluster.gif)<br>
 *Clustered, galaxy-like data. The uniform tree's busiest cell grows with N and its cost explodes as O(N²), where the adaptive tree caps every cell.*
 
 | N (clustered) | adaptive's worst cell | uniform's worst cell |
@@ -64,7 +68,7 @@ And the whole interaction stays physically correct, energy bounded from first ap
 
 It'll push to around four million bodies before disk space for the frames, of all things, becomes the bottleneck, but notably *not* compute.
 
-## What's broken
+## Known issues
 
 That energy curve drifts about 2.7% over the merger. Energy drift is an easy way to track integrity for sims like this, because obviously, total energy should never change in real gravity, so any wandering means the simulation is somehow generating or leaking energy it shouldn't, which would artificially heat a galaxy up and puff it out. 2.7% is small and, crucially, *bounded* — it wobbles inside a band and does not spiral off.
 
