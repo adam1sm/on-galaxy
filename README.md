@@ -1,4 +1,4 @@
-# An O(N) Galaxy
+# Two Galaxies Collide in O(N)
 
 A gravitational N-body engine built around the Fast Multipole Method, a mathematical technique allowing us to simulate a million interacting bodies in **linear time**, written from scratch in 2D and 3D, on CPU and GPU. Demonstrated with the mathematically accurate collision of two galaxies, containing 1 million bodies total, simulated directly on GPU.
 
